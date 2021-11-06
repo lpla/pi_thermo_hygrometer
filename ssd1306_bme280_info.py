@@ -16,7 +16,7 @@ import busio
 import digitalio
 from PIL import Image, ImageDraw, ImageFont
 import adafruit_ssd1306
-import adafruit_bme280
+from adafruit_bme280 import basic as adafruit_bme280
 from adafruit_extended_bus import ExtendedI2C as I2C
 import locale
 
@@ -77,18 +77,19 @@ while True:
     oled.show()
     time.sleep(0.5)
 
-    # now write the date and time enough times to avoid showing weird tempos
-    for _ in range(25):
-         draw.rectangle((0, 0, oled.width, oled.height * 2), outline=0, fill=0)
-         text = time.strftime("%A")
-         draw.text((0, 0), text, font=font, fill=255)
-         text = time.strftime("%e %b %Y")
-         draw.text((0, 18), text, font=font, fill=255)
-         text = time.strftime("%X")
-         draw.text((0, 36), text, font=font2, fill=255)
-         oled.image(image)
-         oled.show()    
-         time.sleep(0.1)
+    # now write the date and time
+    draw.rectangle((0, 0, oled.width, oled.height * 2), outline=0, fill=0)
+    text = time.strftime("%A")
+    draw.text((0, 0), text, font=font, fill=255)
+    text = time.strftime("%e %b %Y")
+    draw.text((0, 18), text, font=font, fill=255)
+    text = time.strftime("%H:%M")
+    draw.text((0, 36), text, font=font2, fill=255)
+    oled.image(image)
+    oled.show()
+
+    # show that for 10 seconds (change if you feel)
+    time.sleep(10)
 
     # another black transition to keep your screen healthier
     draw.rectangle((0, 0, oled.width, oled.height * 2), outline=0, fill=0)
