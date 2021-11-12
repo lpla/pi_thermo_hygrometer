@@ -1,0 +1,4 @@
+pillow
+adafruit-circuitpython-ssd1306
+adafruit-circuitpython-bme280
+adafruit-extended-bus
