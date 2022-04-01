@@ -79,9 +79,9 @@ while True:
 
     # now write the date and time
     draw.rectangle((0, 0, oled.width, oled.height * 2), outline=0, fill=0)
-    text = time.strftime("%A")
+    text = time.strftime("%A %e")
     draw.text((0, 0), text, font=font, fill=255)
-    text = time.strftime("%e %b %Y")
+    text = time.strftime("%b, %Y")
     draw.text((0, 18), text, font=font, fill=255)
     text = time.strftime("%H:%M")
     draw.text((0, 36), text, font=font2, fill=255)
