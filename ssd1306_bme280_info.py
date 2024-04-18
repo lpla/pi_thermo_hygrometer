@@ -35,7 +35,7 @@ RESET_PIN = digitalio.DigitalInOut(board.D4)
 # Also some models like mine have address 0x3C in I2C, but others use 0x3D. Please check it with command like 'i2cdetect' if this value doesn't work.
 i2c = I2C(1)
 oled = adafruit_ssd1306.SSD1306_I2C(128, 64, i2c, addr=0x3C, reset=RESET_PIN)
-
+oled.contrast(1)
 # My BME280 model has 0x76 address, but some others have 0x77. Check it with 'i2cdetect' if this value is not working.
 i2c11 = I2C(11)
 bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c11, address=0x76)
@@ -45,8 +45,7 @@ bme280 = adafruit_bme280.Adafruit_BME280_I2C(i2c11, address=0x76)
 bme280.sea_level_pressure = 1013.25
 
 # Clear display.
-oled.fill(0)
-oled.show()
+oled.poweroff()
 
 # Create blank image for drawing.
 image = Image.new("1", (oled.width, oled.height))
@@ -62,38 +61,35 @@ while True:
     # write the temperature and humidity from BME280 sensor readings
     draw.rectangle((0, 0, oled.width, oled.height * 2), outline=0, fill=0)
     text = "T: %0.1fºC" % bme280.temperature
-    draw.text((0, 0), text, font=font2, fill=255)
+    draw.text((0, 0), text, font=font2, fill=1)
     text = "H: %0.0f%%" % bme280.relative_humidity
-    draw.text((0, 36), text, font=font2, fill=255)
+    draw.text((0, 36), text, font=font2, fill=1)
     oled.image(image)
     oled.show()
+    oled.poweron()
 
-    # show that for 10 seconds (change if you feel)
-    time.sleep(10)
+    # show that for 6 seconds (change if you feel)
+    time.sleep(6)
 
-    # write a black screen as a transition to avoid burned pixels
-    draw.rectangle((0, 0, oled.width, oled.height * 2), outline=0, fill=0)
-    oled.image(image)
-    oled.show()
-    time.sleep(0.5)
+    # poweroff as a transition to avoid burned pixels
+    oled.poweroff()
+    time.sleep(2)
+    oled.poweron()
 
     # now write the date and time
     draw.rectangle((0, 0, oled.width, oled.height * 2), outline=0, fill=0)
     text = time.strftime("%A %e")
-    draw.text((0, 0), text, font=font, fill=255)
+    draw.text((0, 0), text, font=font, fill=1)
     text = time.strftime("%b, %Y")
-    draw.text((0, 18), text, font=font, fill=255)
+    draw.text((0, 18), text, font=font, fill=1)
     text = time.strftime("%H:%M")
-    draw.text((0, 36), text, font=font2, fill=255)
+    draw.text((0, 36), text, font=font2, fill=1)
     oled.image(image)
     oled.show()
 
-    # show that for 10 seconds (change if you feel)
-    time.sleep(10)
+    # show that for 6 seconds (change if you feel)
+    time.sleep(6)
 
-    # another black transition to keep your screen healthier
-    draw.rectangle((0, 0, oled.width, oled.height * 2), outline=0, fill=0)
-    oled.image(image)
-    oled.show()
-    time.sleep(0.5)
-
+    # another poweroff to keep your screen healthier
+    oled.poweroff()
+    time.sleep(2)
