@@ -11,7 +11,7 @@ Use `sudo pip install --upgrade RPi.GPIO --break-system-packages` and `sudo pip 
 
 Read comments in `ssd1306_bme280_info.py` code to modify the values for your specific setup (like the I2C bus, as I have two configured in 1 and 11) and modules models. For a different locale, first install the desired ones with `sudo dpkg-reconfigure locales`
 
-Once you got it working from command line (a simple `python3 ssd1306_bme280_info.py` should be enough), if you want to run it from Raspberry boot, just run `crontab -e` (it will open crontab file with your default editor), add this line at the end:
+Once you got it working from command line (a simple `python3 ssd1306_bme280_info.py` should be enough), if you want to run it from Raspberry boot, just run `sudo crontab -e` (it will open crontab file with your default editor), add this line at the end:
 
 ```
 @reboot python3 /home/pi/pi_thermo_hygrometer/ssd1306_bme280_info.py &
