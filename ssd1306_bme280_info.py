@@ -21,7 +21,7 @@ from adafruit_extended_bus import ExtendedI2C as I2C
 import locale
 
 # Set your desired locale for date and time formats
-locale.setlocale(locale.LC_ALL, 'ca_ES.utf8')
+locale.setlocale(locale.LC_ALL, 'ca_ES.utf8@valencia')
 
 # Setting some variables for our reset pin etc.
 RESET_PIN = digitalio.DigitalInOut(board.D4)
